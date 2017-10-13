@@ -8,7 +8,7 @@ import net.sf.cglib.proxy.MethodProxy;
 
 /**
  * 代理管理器
- *
+ * 输入一个目标类和一组Proxy接口实现，输出一个代理对象 ，用来创建所有的代理对象
  * @author huangyong
  * @since 2.0
  */

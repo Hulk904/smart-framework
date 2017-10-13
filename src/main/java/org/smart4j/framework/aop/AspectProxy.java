@@ -8,7 +8,9 @@ import org.smart4j.framework.aop.proxy.ProxyChain;
 
 /**
  * 切面代理
- *
+ * 切面并没有实现具体的业务逻辑
+ * 类似一个模板 ， 具体的前面由子类去完成 即重写 before（）和after（）方法
+ * 不像spring提供的Aspect注解那么完善的功能，不用继承基类，重写方法，都使用注解就可以完成功能
  * @author huangyong
  * @since 2.0
  */

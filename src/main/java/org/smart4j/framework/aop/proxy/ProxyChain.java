@@ -7,7 +7,7 @@ import net.sf.cglib.proxy.MethodProxy;
 
 /**
  * 代理链
- *
+ * 多个代理通过一条链子串起来，一个一个地去执行
  * @author huangyong
  * @since 2.0
  */
@@ -46,9 +46,9 @@ public class ProxyChain {
     public Object doProxyChain() throws Throwable {
         Object methodResult;
         if (proxyIndex < proxyList.size()) {
-            methodResult = proxyList.get(proxyIndex++).doProxy(this);
+            methodResult = proxyList.get(proxyIndex++).doProxy(this);//
         } else {
-            methodResult = methodProxy.invokeSuper(targetObject, methodParams);
+            methodResult = methodProxy.invokeSuper(targetObject, methodParams);//执行目标对象的业务逻辑
         }
         return methodResult;
     }
