@@ -92,10 +92,27 @@ public class DefaultHandlerInvoker implements HandlerInvoker {
         return paramList;
     }
 
+    /**
+     *
+     * @param actionMethod
+     * @param actionInstance  处理请求的action实例
+     * @param actionMethodParamList
+     * @return
+     * @throws IllegalAccessException
+     * @throws InvocationTargetException
+     */
     private Object invokeActionMethod(Method actionMethod, Object actionInstance, List<Object> actionMethodParamList) throws IllegalAccessException, InvocationTargetException {
         // 通过反射调用 Action 方法
+//        actionMethod.setAccessible(true); // 取消类型安全检测（可提高反射性能）  注释部分为源码，处理参数逻辑有问题
+//        return actionMethod.invoke(actionInstance, actionMethodParamList.toArray());
         actionMethod.setAccessible(true); // 取消类型安全检测（可提高反射性能）
-        return actionMethod.invoke(actionInstance, actionMethodParamList.toArray());
+        //下面为我修改逻辑，还是有问题的，和具体参数绑定的问题 ，多参数的时候顺序没有保证
+        List<Object> params = new ArrayList();
+        for(Object object:actionMethodParamList){
+            Params p = (Params)object;
+            params.addAll(p.getFieldMap().values());
+        }
+        return actionMethod.invoke(actionInstance, params.toArray());
     }
 
     private void checkParamList(Method actionMethod, List<Object> actionMethodParamList) {
